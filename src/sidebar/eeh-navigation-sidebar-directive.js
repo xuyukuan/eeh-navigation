@@ -117,13 +117,16 @@ function SidebarDirective($window, eehNavigation) {
                 setTextCollapseState();
             };
             function setTextCollapseState() {
+                var matches = function(el, selector) {
+                  return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector);
+                };
                 var sidebarMenuItems = angular.element(document.querySelectorAll('ul.sidebar-nav:not(.sidebar-nav-nested) > li > a > span'));
                 var sidebarMenuItemText = sidebarMenuItems.find('span');
                 var allMenuItemTextElements = Array.prototype.filter.call(sidebarMenuItemText, function (item) {
-                    return item.matches('.menu-item-text');
+                    return matches(item, '.menu-item-text');
                 });
                 var arrowIconElements = Array.prototype.filter.call(sidebarMenuItems, function (item) {
-                    return item.matches('.sidebar-arrow');
+                    return matches(item, '.sidebar-arrow');
                 });
                 var sidebarElement = angular.element(document.querySelectorAll('.eeh-navigation-sidebar'));
                 if (scope.sidebarIsCollapsed) {
